@@ -1,0 +1,1 @@
+/Users/macbook/Documents/work/saat_menu_mobile/build/app/intermediates/cxx/RelWithDebInfo/554f46a5/obj/arm64-v8a

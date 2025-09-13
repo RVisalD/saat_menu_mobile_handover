@@ -1,0 +1,42 @@
+name: Building Saat Menu Project CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    # Manual trigger option
+
+jobs:
+  flutter_test_and_build:
+    name: Test and Build Flutter App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.0'
+          channel: 'stable'
+          cache: true
+      
+      - name: Check Flutter version
+        run: flutter --version
+      
+      - name: Install dependencies
+        run: flutter pub get
+        
+      - name: Format code
+        run: dart format .
+        
+      - name: Analyze project source
+        run: flutter analyze --no-fatal-warnings
+      
+      - name: Run tests
+        run: flutter test || true
+        
+      - name: Build Android APK
+        run: flutter build apk --debug
